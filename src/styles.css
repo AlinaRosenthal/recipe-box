@@ -1,0 +1,354 @@
+:root {
+  /* Палитра из DESIGN.md */
+  --rb-primary: #ff9e2c;
+  --rb-primary-pressed: #e88a14;
+  --rb-on-primary: #1f2a1c;
+  --rb-secondary: #a9c59b;
+  --rb-on-secondary: #1f2a1c;
+  --rb-tertiary: #7fa33a;
+  --rb-neutral: #eef2eb;
+  --rb-surface: #ffffff;
+  --rb-surface-tint: #e2e9dd;
+  --rb-outline: #d3decb;
+  --rb-on-surface: #111111;
+  --rb-on-surface-variant: #2e3a2b;
+  --rb-muted: #8a9186;
+  /* Текст метаданных: тот же шалфейный серый, затемнённый до WCAG AA (4,5:1). */
+  --rb-muted-text: #5f6a58;
+  --rb-placeholder: #b5b9b2;
+  --rb-error: #c8472f;
+  --rb-anchor: #566e4b;
+
+  /* Формы и тени */
+  --rb-radius-sm: 8px;
+  --rb-radius-md: 12px;
+  --rb-radius-lg: 16px;
+  --rb-radius-xl: 24px;
+  --rb-shadow-card: 0 8px 24px rgba(63, 90, 52, 0.12);
+  --rb-shadow-card-hover: 0 12px 28px rgba(63, 90, 52, 0.18);
+  --rb-font: "Nunito Sans", "Avenir Next", Avenir, system-ui, sans-serif;
+
+  /* Мост к переменным Mantine — в src/theme.ts (recipeCssVariablesResolver). */
+}
+
+body {
+  margin: 0;
+  background-color: var(--rb-neutral);
+  color: var(--rb-on-surface);
+  font-family: var(--rb-font);
+}
+
+.app {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 20px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.app-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 88px;
+  padding: 16px 24px;
+  overflow: hidden;
+  background: var(--rb-surface);
+  border: 1px solid var(--rb-outline);
+  border-radius: var(--rb-radius-xl);
+}
+
+/* Оливковые волнистые линии — задний план, внизу шапки */
+.header-waves {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.header-waves svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Зелёное органическое пятно — левый верхний угол, круглое */
+.header-blob {
+  position: absolute;
+  top: -60px;
+  left: -40px;
+  width: 220px;
+  height: 220px;
+  background: var(--rb-secondary);
+  border: 2px solid rgba(127, 163, 58, 0.45);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.55;
+}
+
+/* Название поверх пятна */
+.header-brand {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  z-index: 2;
+  max-width: 180px;
+}
+
+.header-title {
+  margin: 0;
+  line-height: 1;
+}
+
+.header-title .brand {
+  color: var(--rb-on-surface);
+  font-size: 24px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.header-title .brand:hover {
+  color: var(--rb-anchor);
+}
+
+.header-title + .header-subtitle {
+  margin-top: 4px;
+}
+
+.header-subtitle {
+  margin: 0;
+  font-size: 12px;
+}
+
+/* Кнопки справа */
+.header-actions {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.header-user-name {
+  font-size: 13px;
+  margin-right: 4px;
+}
+
+/* Блок пользователя и кнопка добавления: на узком экране переносятся вниз. */
+.header-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  max-width: 100%;
+  margin-left: auto;
+}
+
+.header-user-name {
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.login-page {
+  max-width: 460px;
+  margin: 24px auto 0;
+}
+
+.brand {
+  color: var(--rb-on-surface);
+  text-decoration: none;
+}
+
+.brand:hover {
+  color: var(--rb-anchor);
+}
+
+/* Тёмный контур фокуса: шалфейный primary на белом даёт всего ≈1,7:1. */
+.mantine-focus-auto:focus-visible,
+.mantine-focus-always:focus {
+  outline-color: var(--rb-anchor);
+}
+
+.recipe-card:focus-visible {
+  outline: 2px solid var(--rb-anchor);
+  outline-offset: 2px;
+}
+
+.brand:focus-visible {
+  outline: 2px solid var(--rb-anchor);
+  outline-offset: 2px;
+  border-radius: var(--rb-radius-sm);
+}
+
+/* Поля: граница outline и тёмный контур фокуса вместо шалфейного gray-4. */
+[data-mantine-color-scheme="light"] .mantine-Input-input {
+  --input-bd: var(--rb-outline);
+  --input-bd-focus: var(--rb-anchor);
+}
+
+/* Ошибка важнее базовой границы: иначе красный контур поля терялся. */
+[data-mantine-color-scheme="light"] .mantine-Input-input[data-error] {
+  --input-bd: var(--rb-error);
+  --input-bd-focus: var(--rb-error);
+}
+
+/* Невыбранный чекбокс: граница палитрового Muted #8A9186 (3,2:1 на белом)
+   вместо Mantine gray-4 (1,5:1) — требование WCAG 1.4.11 к элементам управления. */
+[data-mantine-color-scheme="light"] .mantine-Checkbox-input {
+  border-color: var(--rb-muted);
+}
+
+/* Mantine задаёт границу карточек через gray-3; возвращаем outline из DESIGN.md. */
+[data-mantine-color-scheme="light"] .mantine-Paper-root {
+  --paper-border-color: var(--rb-outline);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(300px, 360px) minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.column-left {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.page {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+.page-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-bottom: 12px;
+}
+
+.page-toolbar .back-link {
+  margin-bottom: 0;
+}
+
+.error-page {
+  max-width: 640px;
+  padding-top: 24px;
+}
+
+.recipe-card {
+  color: var(--rb-on-surface-variant);
+  text-decoration: none;
+  transition: box-shadow 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+}
+
+.recipe-card:hover {
+  border-color: var(--rb-secondary);
+  box-shadow: var(--rb-shadow-card-hover);
+  transform: translateY(-1px);
+}
+
+.ingredient-row {
+  display: grid;
+  grid-template-columns: 90px 96px minmax(0, 1fr) auto;
+  gap: 6px;
+  align-items: center;
+}
+
+/* Узкое поле единицы: меньше отступы, чтобы «шт», «мл», «ст.л.» и «щепотка»
+   не обрезались. Ширины колонок при этом не меняются. */
+.ingredient-row .mantine-Select-input {
+  padding-left: 8px;
+  padding-right: 20px;
+}
+
+.ingredient-row .mantine-Select-section {
+  width: 20px;
+}
+
+.ingredient-row-block {
+  margin-bottom: 8px;
+}
+
+.amount {
+  white-space: nowrap;
+}
+
+.steps-list {
+  margin: 12px 0 0;
+  padding-left: 0;
+  list-style: none;
+  counter-reset: step;
+}
+
+.steps-list li {
+  position: relative;
+  min-height: 28px;
+  padding-left: 40px;
+  counter-increment: step;
+}
+
+.steps-list li::before {
+  content: counter(step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: var(--rb-surface);
+  border: 1px solid var(--rb-outline);
+  border-radius: var(--rb-radius-sm);
+  color: var(--rb-on-surface);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+@media (max-width: 720px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .login-page {
+    margin-top: 12px;
+  }
+
+  /* Полям ингредиента нужно больше места под название на узком экране. */
+  .ingredient-row {
+    grid-template-columns: 80px 88px minmax(0, 1fr) auto;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Имя уже показано подзаголовком, поэтому в шапке оставляем только действия. */
+  .header-user-name {
+    display: none;
+  }
+}
+
+@media (max-width: 360px) {
+  .ingredient-row {
+    grid-template-columns: 60px 68px minmax(0, 1fr) auto;
+    gap: 4px;
+  }
+}
